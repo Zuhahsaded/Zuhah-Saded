@@ -1,2 +1,2 @@
-# Zuhah-Saded
-Project Final
+libname mylib '/path/to/your/data';
+

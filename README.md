@@ -1713,3 +1713,78 @@ length 'I_Primary_cancer_2582'n $19;
 'P_Primary_cancerUterus_2582'n='P_Primary_cancerUterus'n;
    /*------------------------------------------*/
 
+/*---------------------------------------------------------
+  The options statement below should be placed
+  before the data step when submitting this code.
+---------------------------------------------------------*/
+options VALIDMEMNAME=EXTEND VALIDVARNAME=ANY;
+   /*------------------------------------------
+   Generated SAS Scoring Code
+     Date             : December 16, 2024, 02:48:21 AM
+     Locale           : en_US
+     Model Type       : Linear Regression
+     Interval variable: Age (Y)
+     Interval variable: BMI (kg/m^2)
+     Interval variable: Height (m)
+     Interval variable: Weight (kg)
+     Response variable: Age (Y)
+     ------------------------------------------*/
+   /*---------------------------------------------------------
+     Generated SAS Scoring Code
+     Date: 16Dec2024:02:48:20
+     -------------------------------------------------------*/
+
+   /*---------------------------------------------------------
+   Defining temporary arrays and variables   
+     -------------------------------------------------------*/
+   drop _badval_ _linp_ _temp_ _i_ _j_;
+   _badval_ = 0;
+   _linp_   = 0;
+   _temp_   = 0;
+   _i_      = 0;
+   _j_      = 0;
+
+   array _xrow_854_0_{4} _temporary_;
+   array _beta_854_0_{4} _temporary_ (   -219.296087338211
+           5.00252576081424
+           169.280263422583
+          -1.76929250186259);
+
+   /*------------------------------------------*/
+   /*Missing values in model variables result  */
+   /*in missing values for the prediction.     */
+   if missing('BMI (kg/m^2)'n) 
+      or missing('Weight (kg)'n) 
+      or missing('Height (m)'n) 
+      then do;
+         _badval_ = 1;
+         goto skip_854_0;
+   end;
+   /*------------------------------------------*/
+
+   do _i_=1 to 4; _xrow_854_0_{_i_} = 0; end;
+
+   _xrow_854_0_[1] = 1;
+
+   _xrow_854_0_[2] = 'BMI (kg/m^2)'n;
+
+   _xrow_854_0_[3] = 'Height (m)'n;
+
+   _xrow_854_0_[4] = 'Weight (kg)'n;
+
+   do _i_=1 to 4;
+      _linp_ + _xrow_854_0_{_i_} * _beta_854_0_{_i_};
+   end;
+
+   skip_854_0:
+   label P_Age__Y_ = 'Predicted: Age (Y)';
+   if (_badval_ eq 0) and not missing(_linp_) then do;
+      P_Age__Y_ = _linp_;
+   end; else do;
+      _linp_ = .;
+      P_Age__Y_ = .;
+   end;
+   /*------------------------------------------*/
+   /*_VA_DROP*/ drop 'P_Age__Y_'n;
+      'P_Age__Y__854'n='P_Age__Y_'n;
+   /*------------------------------------------*/
